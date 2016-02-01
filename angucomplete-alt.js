@@ -47,7 +47,8 @@
       // Set the default template for this directive
       $templateCache.put(TEMPLATE_URL,
         '<div class="angucomplete-holder" ng-class="{\'angucomplete-dropdown-visible\': showDropdown}">' +
-        '  <input id="{{id}}_value" name="{{inputName}}" ng-class="{\'angucomplete-input-not-empty\': notEmpty}" ng-model="searchStr" ng-disabled="disableInput" type="{{inputType}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)"/>' +
+        '  <input ng-show="typeElementAutocomplete != \'textarea\'" id="{{id}}_value" name="{{inputName}}" ng-class="{\'angucomplete-input-not-empty\': notEmpty}" ng-model="searchStr" ng-disabled="disableInput" type="{{inputType}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)"/>' +
+        '  <textarea ng-show="typeElementAutocomplete == \'textarea\'" id="{{id}}_value" name="{{inputName}}" ng-class="{\'angucomplete-input-not-empty\': notEmpty}" ng-model="searchStr" ng-disabled="disableInput" type="{{inputType}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)"></textarea>' +
         '</div>'
       );
 
@@ -77,6 +78,13 @@
 
       function link(scope, elem, attrs, ctrl) {
         var inputField = elem.find('input');
+
+        if(angular.isDefined(scope.typeElementAutocomplete)){
+          if(scope.typeElementAutocomplete == 'textarea') {
+            inputField=elem.find( 'textarea' );
+          }
+        }
+
         var minlength = MIN_LENGTH;
         var searchTimer = null;
         var hideTimer;
@@ -748,10 +756,6 @@
           }
           callOrAssign(result);
           clearResults();
-
-          if(scope.cleanOnSelect){
-            scope.searchStr = null;
-          }
         };
 
         scope.$watch( function(  ) {
@@ -879,8 +883,8 @@
           inputName: '@',
           focusFirst: '@',
           parseInput: '&',
-          cleanOnSelect: '=',
-          cleanInputOn:'='
+          cleanInputOn:'=',
+          typeElementAutocomplete:'@'
         },
         templateUrl: function(element, attrs) {
           return attrs.templateUrl || TEMPLATE_URL;
