@@ -80,7 +80,7 @@
         var inputField = elem.find('input');
 
         if(angular.isDefined(scope.typeElementAutocomplete)){
-          if(scope.typeElementAutocomplete == 'textarea') {
+          if(scope.typeElementAutocomplete === 'textarea') {
             inputField=elem.find( 'textarea' );
           }
         }
