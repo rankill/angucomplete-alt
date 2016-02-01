@@ -226,14 +226,28 @@
         }
 
         function callOrAssign(value) {
-          if (typeof scope.selectedObject === 'function') {
-            scope.selectedObject(value);
-          }
-          else {
-            scope.selectedObject = value;
+          console.warn(value);
+
+          var valueToSend = value;
+
+          if(angular.isDefined(scope.selectedReceivedField)){
+            if(scope.selectedReceivedField !== 'all'){
+              if(value.hasOwnProperty(scope.selectedReceivedField)){
+                valueToSend = value[scope.selectedReceivedField];
+              }else{
+                console.warn( 'The field that you type  to pass to the selected object does not exist in the value array, so the value will pass as the original -> ', scope.selectedReceivedField, 'does not exists in value' );
+              }
+            }
           }
 
-          if (value) {
+          if (typeof scope.selectedObject === 'function') {
+            scope.selectedObject(valueToSend);
+          }
+          else {
+            scope.selectedObject = valueToSend;
+          }
+
+          if (valueToSend) {
             handleRequired(true);
           }
           else {
@@ -884,7 +898,10 @@
           focusFirst: '@',
           parseInput: '&',
           cleanInputOn:'=',
-          typeElementAutocomplete:'@'
+          typeElementAutocomplete:'@', //Permite seleccionar entre input text y textarea
+          selectedReceivedField:'@' //Permite definir que elemento del objeto recibido quiere llegar, si el title,
+                                    // completo (all or undefined) o el objeto original
+
         },
         templateUrl: function(element, attrs) {
           return attrs.templateUrl || TEMPLATE_URL;
