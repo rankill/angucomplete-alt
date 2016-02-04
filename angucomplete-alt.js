@@ -226,7 +226,6 @@
         }
 
         function callOrAssign(value) {
-          console.warn(value);
 
           var valueToSend = value;
 
