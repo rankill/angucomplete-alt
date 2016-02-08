@@ -1,11 +1,11 @@
 {
   "name": "angucomplete-alt",
-  "version": "2.1.0",
-  "homepage": "http://ghiden.github.io/angucomplete-alt/",
+  "version": "2.2.0",
+  "homepage": "http://rankill.github.io/angucomplete-alt/",
   "authors": [
-    "Hidenari Nozaki <hidenari@gmail.com>"
+    "Rankill <luis.eonltd@gmail.com>"
   ],
-  "description": "Autocomplete directive for AngularJS",
+  "description": "Autocomplete directive for AngularJS froked from Daryl Rowland and Hidenari Nozaki",
   "keywords": [
     "autocomplete",
     "typeahead",
@@ -13,8 +13,8 @@
   ],
   "license": "MIT",
   "main": [
-      "./angucomplete-alt.js",
-      "./angucomplete-alt.css"
+    "./angucomplete-alt.js",
+    "./angucomplete-alt.css"
   ],
   "ignore": [
     "example",
