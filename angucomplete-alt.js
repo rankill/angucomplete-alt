@@ -2,7 +2,8 @@
  * angucomplete-alt
  * Autocomplete directive for AngularJS
  * This is a fork of Daryl Rowland's angucomplete with some extra features.
- * By Hidenari Nozaki
+ * This is forked again from the Hidenari Nozaki fork
+ * By: Rankill
  */
 
 /*! Copyright (c) 2014 Hidenari Nozaki and contributors | Licensed under the MIT license */
@@ -229,12 +230,30 @@
 
           var valueToSend = value;
 
-          if(angular.isDefined(scope.selectedReceivedField)){
+          if(angular.isDefined(scope.selectedReceivedField) && angular.isDefined(valueToSend)){
             if(scope.selectedReceivedField !== 'all'){
-              if(value.hasOwnProperty(scope.selectedReceivedField)){
-                valueToSend = value[scope.selectedReceivedField];
+
+              var indexToSearch = scope.selectedReceivedField.split('.');
+              var tempToSend = value;
+              var indexNotInObj = false;
+              var i;
+
+              for( i=0; i < indexToSearch.length; i++) {
+                if( tempToSend.hasOwnProperty( indexToSearch[ i ] ) ) {
+                  tempToSend=tempToSend[indexToSearch[ i ] ];
+                } else {
+                  indexNotInObj = true;
+                  break;
+                }
+              }
+
+              if(indexNotInObj){
+                valueToSend = value;
+                console.warn( '[Angucomplete-alt] At least one of the fields that you type to pass to the selected object does not exist'+
+                  ' in the value array, so the value will pass as the original -> ', scope.selectedReceivedField,
+                  indexToSearch[i], 'does not exists in the array' );
               }else{
-                console.warn( 'The field that you type to pass to the selected object does not exist in the value array, so the value will pass as the original -> ', scope.selectedReceivedField, 'does not exists in value' );
+                valueToSend = tempToSend;
               }
             }
           }
