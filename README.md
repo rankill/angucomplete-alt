@@ -135,7 +135,8 @@ It expects the returned results from remote API to have a root object. In the ab
 | focus-first | Automatically select the first match from the result list. |  No | @ | true |
 | parse-input | A function or expression to parse input string before comparing into search process. |  No | & | parseInput() |
 | clean-input-on | Function that clean input search depneding of an external value |  No | = | true |
-| typeElementAutocomplete | Attr that lets selecte between a textarea or an input text |  No | @ | 'textarea' - 'text' |
+| strictSelection | Attr that lets define a strict mode to the autocomplete, if it's true, you wont be able to select an item that isn't inside result list, if it's false, you will be able to select the string that you wrote, even if it isn't inside result list|  No | = | true - false |
+| typeElementAutocomplete | Attr that lets select between a textarea or an input text |  No | @ | 'textarea' - 'text' |
 | selectedReceivedField | Lets define what element will be pased to the selectedObject attr |  No | @ | 'all' or undefined - 'title' - 'originalObject.id' or 'originalObject.name' [It depends of the returned element]|
 
 

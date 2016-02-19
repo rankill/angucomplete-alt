@@ -338,6 +338,10 @@
           }
         }
 
+        /**
+         * Function que ejecuta los eventos por teclado del angucomplete
+         * @param event
+         */
         function keyupHandler(event) {
           var which = ie8EventNormalizer(event);
           if (which === KEY_LF || which === KEY_RT) {
@@ -363,6 +367,7 @@
             });
           }
           else {
+
             if (minlength === 0 && !scope.searchStr) {
               return;
             }
@@ -448,17 +453,37 @@
           var rowTop = null;
 
           if (which === KEY_EN && scope.results) {
+
+            //Valido si esta activo el modo estricto, si lo esta, solo puedo seleccionar una opcion parandome sobre
+            // esta, sino, puedo darle enter al string que este en mi campo de texto actualmente, independiente de si existe o no en la lista de resultados de mi autocomplete
+            if(!scope.strictSelection) {
+              if( scope.currentIndex < 0 && scope.results.length != 1) {
+
+                var tempSelected = {
+                  title: scope.searchStr,
+                  description: undefined,
+                  image: undefined,
+                  originalObject: scope.searchStr
+                };
+
+                scope.selectResult(tempSelected);
+              }
+            }
+
             if(scope.results.length === 1){
               scope.selectResult(scope.results[0]);
-            } else if (scope.currentIndex >= 0 && scope.currentIndex < scope.results.length) {
+            }
+            else if (scope.currentIndex >= 0 && scope.currentIndex < scope.results.length) {
               event.preventDefault();
               scope.selectResult(scope.results[scope.currentIndex]);
-            } else {
+            }
+            else {
               handleOverrideSuggestions(event);
               clearResults();
             }
             scope.$apply();
-          } else if (which === KEY_DW && scope.results) {
+          }
+          else if (which === KEY_DW && scope.results) {
             event.preventDefault();
             if ((scope.currentIndex + 1) < scope.results.length && scope.showDropdown) {
               scope.$apply(function() {
@@ -473,7 +498,8 @@
                 }
               }
             }
-          } else if (which === KEY_UP && scope.results) {
+          }
+          else if (which === KEY_UP && scope.results) {
             event.preventDefault();
             if (scope.currentIndex >= 1) {
               scope.$apply(function() {
@@ -494,7 +520,8 @@
                 inputField.val(scope.searchStr);
               });
             }
-          } else if (which === KEY_TAB) {
+          }
+          else if (which === KEY_TAB) {
             if (scope.results && scope.results.length > 0 && scope.showDropdown) {
               if (scope.currentIndex === -1 && scope.overrideSuggestions) {
                 // intentionally not sending event so that it does not
@@ -517,7 +544,8 @@
                 handleOverrideSuggestions();
               }
             }
-          } else if (which === KEY_ES) {
+          }
+          else if (which === KEY_ES) {
             // This is very specific to IE10/11 #272
             // without this, IE clears the input text
             event.preventDefault();
@@ -916,6 +944,7 @@
           focusFirst: '@',
           parseInput: '&',
           cleanInputOn:'=',
+          strictSelection:'=',
           typeElementAutocomplete:'@', //Permite seleccionar entre input text y textarea
           selectedReceivedField:'@' //Permite definir que elemento del objeto recibido quiere llegar, si el title,
                                     // completo (all or undefined) o el objeto original
