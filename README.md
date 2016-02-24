@@ -138,6 +138,7 @@ It expects the returned results from remote API to have a root object. In the ab
 | strictSelection | Attr that lets define a strict mode to the autocomplete, if it's true, you wont be able to select an item that isn't inside result list, if it's false, you will be able to select the string that you wrote, even if it isn't inside result list|  No | = | true - false |
 | typeElementAutocomplete | Attr that lets select between a textarea or an input text |  No | @ | 'textarea' - 'text' |
 | selectedReceivedField | Lets define what element will be pased to the selectedObject attr |  No | @ | 'all' or undefined - 'title' - 'originalObject.id' or 'originalObject.name' [It depends of the returned element]|
+| strictSelection | This attr lets define if the selected element has to be on the list of filtered results or if it can be just the searchStr |  No | = | true - false |
 
 
 

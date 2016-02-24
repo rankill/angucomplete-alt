@@ -50,8 +50,7 @@
         '<div class="angucomplete-holder" ng-class="{\'angucomplete-dropdown-visible\': showDropdown}">' +
         '  <input ng-show="typeElementAutocomplete != \'textarea\'" id="{{id}}_value" name="{{inputName}}" ng-class="{\'angucomplete-input-not-empty\': notEmpty}" ng-model="searchStr" ng-disabled="disableInput" type="{{inputType}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)"/>' +
         '  <textarea ng-show="typeElementAutocomplete == \'textarea\'" id="{{id}}_value" name="{{inputName}}" ng-class="{\'angucomplete-input-not-empty\': notEmpty}" ng-model="searchStr" ng-disabled="disableInput" type="{{inputType}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)"></textarea>' +
-        '</div>'
-      );
+        '</div>');
 
 
       /**
@@ -231,7 +230,7 @@
           var valueToSend = value;
 
           if(angular.isDefined(scope.selectedReceivedField) && angular.isDefined(valueToSend)){
-            if(scope.selectedReceivedField !== 'all'){
+            if(scope.selectedReceivedField !== 'all') {
 
               var indexToSearch = scope.selectedReceivedField.split('.');
               var tempToSend = value;
