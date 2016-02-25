@@ -558,6 +558,7 @@
               responseData = responseData.data;
             }
             scope.searching = false;
+
             processResults(
               extractValue(responseFormatter(responseData), scope.remoteUrlDataField),
               str);
@@ -823,6 +824,18 @@
           if(newVal !== oldVal){
             if(newVal){
               scope.searchStr = null;
+            }
+          }
+        });
+
+
+
+        scope.$watch( function(  ) {
+          return scope.searchStr;
+        }, function( newVal, oldVal ) {
+          if(newVal !== oldVal){
+            if(newVal == null || newVal.trim().length == 0){
+              clearResults();
             }
           }
         });
